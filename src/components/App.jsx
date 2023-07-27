@@ -3,7 +3,8 @@ import { Form } from "./form/form";
 import { ContactList } from "./contactList/contactList";
 import { FilterContacts } from "./filter/filterContacts";
 import { H1, H2, Wraper } from "./App.styled";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
+
 
 
 export const App = () => {
@@ -37,10 +38,20 @@ export const App = () => {
     setContacts(prevState => contacts.filter((contact) => contact.id !== id))
 
   }
+  /**variant 1 *///=============
+  const filteredContactsList = useMemo(() => {
+    return contacts.filter((contact) =>
+      contact.name.toLowerCase().includes(filter.toLowerCase())
+    );
+  }, [contacts, filter]);
 
-  const filteredContactsList = contacts.filter((contact) => {
-    return contact.name.toLowerCase().includes(filter.toLowerCase())
-  });
+  /**variant 2 *///=============
+
+  // const filteredContactsList = contacts.filter((contact) => {
+  //   return contact.name.toLowerCase().includes(filter.toLowerCase())
+  // });
+
+  //============================
 
   return (
     <Wraper>
